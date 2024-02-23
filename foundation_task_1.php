@@ -1,13 +1,13 @@
 <?php
-function addAll($array) {
-    if(count($array) == 0) {
-        return 0;
+    function addAll($ArrElements) {
+        if(count($ArrElements) == 0) {
+            return 0;
+        }
+        $TotSum = array_sum($ArrElements);
+        array_shift($ArrElements);
+        return $TotSum + addAll($ArrElements);
     }
-    $total = array_sum($array);
-    array_shift($array);
-    return $total + addAll($array);
-}
 
-$array = [1,1,1,1,1];  //5+4+3+2+1=15
-echo addAll($array);
+    $ArrInput = [1,1,1,1,1];  //5+4+3+2+1=15
+    echo addAll($ArrInput);
 ?>
