@@ -1,6 +1,6 @@
 <?php
     function addAll($ArrElements) {
-        if(count($ArrElements) == 0) {
+        if(empty($ArrElements)) {
             return 0;
         }
         $TotSum = array_sum($ArrElements);
@@ -10,4 +10,3 @@
 
     $ArrInput = [1,1,1,1,1];  //5+4+3+2+1=15
     echo addAll($ArrInput);
-?>
