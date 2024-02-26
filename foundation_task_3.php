@@ -1,14 +1,19 @@
 <?php
     class Palindrome {
         public static function isPalindrome($word) {
-        //TODO: Implement this
-            return false;
+
+            $word = preg_replace('/[^a-z0-9]/','',strtolower($word));
+
+            if ($word == strrev($word)) {
+                return true;
+            } else{
+                return false;
+            }
         }
     }
 
-    if (Palindrome::isPalindrome('Never Odd Or Even'))
+    if (Palindrome::isPalindrome('Never Odd Or Even')){
         echo 'Palindrome';
-    else
+    } else {
         echo 'Not palindrome';
-
-?>
+    }
