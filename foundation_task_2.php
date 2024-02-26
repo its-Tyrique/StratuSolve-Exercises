@@ -1,13 +1,20 @@
 <?php
-    function fibonacciSequence($IntNumOfElements, $IntFirstNum = 0, $IntSecondNum = 1) {
-        if($IntNumOfElements == 0) {
-            return 0;
-        }
-        echo $IntFirstNum.", ";
-        $IntNextNum = $IntFirstNum + $IntSecondNum;
-        return (fibonacciSequence($IntNumOfElements -1, $IntSecondNum, $IntNextNum));
-    }
+function fibonacciSequence($maxValue): void
+{
+    $IntFirstNum = 0;
+    $IntSecondNum = 1;
 
-    $IntNumOfElements = 10;
-    echo "Fibonacci series for ".$IntNumOfElements." elements: ";
-    fibonacciSequence($IntNumOfElements);
+    echo $IntFirstNum . ", ";
+
+    while ($IntSecondNum <= $maxValue) {
+        echo $IntSecondNum . ", ";
+
+        $IntNextNum = $IntFirstNum + $IntSecondNum;
+        $IntFirstNum = $IntSecondNum;
+        $IntSecondNum = $IntNextNum;
+    }
+}
+
+$maxValue = 44; // Change this value as needed
+echo "Fibonacci series till " . $maxValue . ": ";
+fibonacciSequence($maxValue);
