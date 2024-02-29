@@ -50,7 +50,7 @@
             border-radius: 4px;
         }
 
-        #submit {
+        #Submit {
             background-color: #4caf50;
             color: white;
             padding: 10px;
@@ -73,7 +73,7 @@
             <legend>Fibonacci</legend>
             <label for="MaxInt">Enter the maximum value:</label>
             <input type="number" name="MaxInt" id="MaxInt">
-            <input id="submit" type="button" value="Submit">
+            <input id="Submit" type="button" value="Submit">
         </fieldset>
     </div>
 
@@ -82,7 +82,7 @@
 
 <script>
     $(document).ready(function() {
-        $("#submit").click(function () {
+        $("#Submit").click(function () {
             var MaxInt = $("#MaxInt").val();
 
             $.ajax({

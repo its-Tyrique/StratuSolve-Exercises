@@ -1,28 +1,23 @@
 <?php
+    function fibonacciSequence($MaxValueInt): void
+    {
+        $FirstNumInt = 0;
+        $SecondNumInt = 1;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+        echo $FirstNumInt . ", ";
 
-function fibonacciSequence($maxValue): void
-{
-    $IntFirstNum = 0;
-    $IntSecondNum = 1;
+        while ($SecondNumInt <= $MaxValueInt) {
+            echo $SecondNumInt . ", ";
 
-    echo $IntFirstNum . ", ";
-
-    while ($IntSecondNum <= $maxValue) {
-        echo $IntSecondNum . ", ";
-
-        $IntNextNum = $IntFirstNum + $IntSecondNum;
-        $IntFirstNum = $IntSecondNum;
-        $IntSecondNum = $IntNextNum;
+            $NextNumInt = $FirstNumInt + $SecondNumInt;
+            $FirstNumInt = $SecondNumInt;
+            $SecondNumInt = $NextNumInt;
+        }
     }
-}
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['MaxInt'])) {
-//if (isset($_POST['MaxInt'])){
-    $maxValue = $_POST['MaxInt'];
-    echo "Fibonacci generated: ";
-    fibonacciSequence($maxValue);
-}
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['MaxInt'])) {
+    //if (isset($_POST['MaxInt'])){
+        $MaxValueInt = $_POST['MaxInt'];
+        echo "Fibonacci generated: ";
+        fibonacciSequence($MaxValueInt);
+    }
