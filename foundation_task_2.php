@@ -1,20 +1,36 @@
 <?php
-function fibonacciSequence($maxValue): void
-{
-    $IntFirstNum = 0;
-    $IntSecondNum = 1;
+//    Non-recursive function for Fibonacci series
+    function fibonacciSequence($MaxValueInt): void
+    {
+        $FirstNumInt = 0;
+        $SecondNumInt = 1;
 
-    echo $IntFirstNum . ", ";
+        echo $FirstNumInt . ", ";
 
-    while ($IntSecondNum <= $maxValue) {
-        echo $IntSecondNum . ", ";
+        while ($SecondNumInt <= $MaxValueInt) {
+            echo $SecondNumInt . ", ";
 
-        $IntNextNum = $IntFirstNum + $IntSecondNum;
-        $IntFirstNum = $IntSecondNum;
-        $IntSecondNum = $IntNextNum;
+            $NextNumInt = $FirstNumInt + $SecondNumInt;
+            $FirstNumInt = $SecondNumInt;
+            $SecondNumInt = $NextNumInt;
+        }
     }
-}
 
-$maxValue = 44; // Change this value as needed
-echo "Fibonacci series till " . $maxValue . ": ";
-fibonacciSequence($maxValue);
+    $MaxValueInt = 44; // Change this value as needed
+    echo "Fibonacci series till " . $MaxValueInt . ": ";
+    fibonacciSequence($MaxValueInt);
+
+//    Recursive function for Fibonacci series
+    /*function fibonacciSequence($NumOfElementsInt, $FirstNumInt = 0, $SecondNumInt = 1)
+    {
+        if ($NumOfElementsInt == 0) {
+            return 0;
+        }
+        echo $FirstNumInt . ", ";
+        $NextNumInt = $FirstNumInt + $SecondNumInt;
+        return (fibonacciSequence($NumOfElementsInt - 1, $SecondNumInt, $NextNumInt));
+    }
+
+    $NumOfElementsInt = 10;
+    echo "Fibonacci series for " . $NumOfElementsInt . " elements: ";
+    fibonacciSequence($NumOfElementsInt);*/
