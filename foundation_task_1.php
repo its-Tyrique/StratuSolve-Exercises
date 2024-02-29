@@ -1,12 +1,12 @@
 <?php
-    function addAll($ArrElements) {
-        if(empty($ArrElements)) {
+    function addAll($ElementsArr) {
+        if(empty($ElementsArr)) {
             return 0;
         }
-        $TotSum = array_sum($ArrElements);
-        array_shift($ArrElements);
-        return $TotSum + addAll($ArrElements);
+        $TotSumInt = array_sum($ElementsArr);
+        array_shift($ElementsArr);
+        return $TotSumInt + addAll($ElementsArr);
     }
 
-    $ArrInput = [1,1,1,1,1];  //5+4+3+2+1=15
-    echo addAll($ArrInput);
+    $InputArr = [1,1,1,1,1];
+    echo addAll($InputArr);
