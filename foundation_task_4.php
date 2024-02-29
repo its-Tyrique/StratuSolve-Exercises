@@ -3,8 +3,8 @@
         public static function groupByOwners($ItemsArr): array
         {
             $OwnersArr = [];
-            foreach ($ItemsArr as $Item => $Owner) {
-                $OwnersArr[$Owner][] = $Item;
+            foreach ($ItemsArr as $ItemStr => $OwnerStr) {
+                $OwnersArr[$OwnerStr][] = $ItemStr;
             }
             return $OwnersArr;
         }
