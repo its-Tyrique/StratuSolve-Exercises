@@ -1,57 +1,145 @@
 <?php
-    $ServerName = "localhost";
-    $UserName = "root";
-    $Password ="Summer29#";
-    $DBName = "PersonalInfoDB";
+    $StartTimeFlt = microtime(true);
 
-    $DBConnect = new mysqli($ServerName, $UserName, $Password, $DBName);
+    $ServerNameStr = "localhost";
+    $UserNameStr = "root";
+    $PasswordStr ="Summer29#";
+    $DBNameStr = "PersonalInfoDB";
 
-    if ($DBConnect->connect_errno) {
-        die("Connection failed: ". $DBConnect->connect_error);
-    } echo "Connected successfully";
+    $DBConnectObj = new mysqli($ServerNameStr, $UserNameStr, $PasswordStr, $DBNameStr);
+
+    if ($DBConnectObj->connect_errno) {
+        die("Database Connection failed: ". $DBConnectObj->connect_error);
+    }
 
     class Person {
         // Properties
-        public $FirtName, $Surname, $DateOfBirth, $EmailAddress, $Age;
-        private $DBConnect;
+        public $FirtNameStr, $SurnameStr, $DateOfBirthStr, $EmailAddressStr, $AgeInt;
+        private $DBConnectObj;
 
-        public function __construct($DBConnect) {
-            $this->DBConnect = $DBConnect;
+        public function __construct($DBConnectObj) {
+            $this->DBConnectObj = $DBConnectObj;
         }
 
         // Methods
-        function createPerson($FirstName, $Surname, $DateOfBirth, $EmailAddress, $Age) {
-            $StmtCreatePerson = $this->DBConnect->prepare("INSERT INTO Person (FirstName, Surname, DateOfBirth, 
+        function createPerson($FirstNameStr, $SurnameStr, $DateOfBirthStr, $EmailAddressStr, $AgeInt) {
+            $CreatePersonStmt = $this->DBConnectObj->prepare("INSERT INTO Person (FirstName, Surname, DateOfBirth, 
                                 EmailAddress, Age) VALUES (?, ?, ?, ?, ?)");
-            $StmtCreatePerson->bind_param("ssssi", $FirstName, $Surname, $DateOfBirth, $EmailAddress, $Age);
+            $CreatePersonStmt->bind_param("ssssi", $FirstNameStr, $SurnameStr, $DateOfBirthStr, $EmailAddressStr, $AgeInt);
 
-            if (!$StmtCreatePerson->execute()) {
-                die("CreatePerson execute failed: ".$StmtCreatePerson->error);
+            if (!$CreatePersonStmt->execute()) {
+                die("CreatePerson execute failed: ".$CreatePersonStmt->error);
+            } echo "\nUser created with ID: ".$CreatePersonStmt->insert_id;
+        }
+        function loadPerson($PersonIdInt) {
+            $loadPersonStmt = $this->DBConnectObj->prepare("SELECT * FROM Person WHERE Id = ?");
+            $loadPersonStmt->bind_param("i", $PersonIdInt);
+
+            if (!$loadPersonStmt->execute()) {
+                die("loadPerson execute failed: ".$loadPersonStmt->error);
+            } else {
+                $Result = $loadPersonStmt->get_result();
+
+                if ($Result->num_rows > 0) {
+                    $PersonArr = $Result->fetch_assoc();
+                    echo "\nPerson loaded: \n\t".$PersonArr['FirstName']." ".$PersonArr['Surname']." \n\tDoB: ".$PersonArr['DateOfBirth']
+                        ." \n\tEmail: ". $PersonArr['EmailAddress']." \n\tAge: ".$PersonArr['Age']."\n";
+                } else {
+                    echo "\nPerson with PersonID: ".$PersonIdInt." not found in the database\n";
+                }
+            }
+        }
+        function savePerson($PersonIdInt, $FirstNameStr, $SurnameStr, $DateOfBirthStr, $EmailAddressStr, $AgeInt) {
+            $SavePersonStmt = $this->DBConnectObj->prepare("
+                    INSERT INTO Person (Id, FirstName, Surname, DateOfBirth,EmailAddress, Age)
+                    VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE
+                    FirstName = VALUES(FirstName), 
+                    Surname = VALUES(Surname),
+                    DateOfBirth = VALUES(DateOfBirth), 
+                    EmailAddress = VALUES(EmailAddress), 
+                    Age = VALUES(Age)
+                ");
+            $SavePersonStmt->bind_param("issssi", $PersonIdInt, $FirstNameStr, $SurnameStr, $DateOfBirthStr, $EmailAddressStr, $AgeInt);
+
+            if (!$SavePersonStmt->execute()) {
+                die("SavePerson execute failed: ".$SavePersonStmt->error);
+            } else {
+                echo "\nPerson saved with ID: ".$PersonIdInt."\n";
             }
 
-            echo "User created with ID:".$StmtCreatePerson->insert_id;
         }
-        function loadPerson($PersonId) {
+        function deletePerson($PersonIdInt) {
+            $DeletePersonStmt = $this->DBConnectObj->prepare("DELETE FROM Person WHERE Id = ?");
+            $DeletePersonStmt->bind_param("i", $PersonIdInt);
 
-        }
-        function savePerson() {
-
-        }
-        function deletePerson() {
-
+            if (!$DeletePersonStmt->execute()) {
+                die("DeletePerson execute failed: ".$DeletePersonStmt->error);
+            } else {
+                echo "\nPerson deleted with ID: ".$PersonIdInt."\n";
+            }
         }
         function loadAllPeople() {
+            $LoadAllPeopleStmt = $this->DBConnectObj->prepare("SELECT * FROM Person");
+            if (!$LoadAllPeopleStmt->execute()) {
+                die("LoadAllPeople execute failed: ".$LoadAllPeopleStmt->error);
+            } else {
+                $Result = $LoadAllPeopleStmt->get_result();
 
+                if ($Result->num_rows === 0) {
+                    echo "\nNo people found in table\n";
+                } else {
+                    while ($PersonArr = $Result->fetch_assoc()) {
+                        echo "\nPersonID: ".$PersonArr['id']."\n\tName: ".$PersonArr['FirstName']." ".$PersonArr['Surname']." \n\tDoB: ".$PersonArr['DateOfBirth']
+                            ." \n\tEmail: ". $PersonArr['EmailAddress']." \n\tAge: ".$PersonArr['Age']."\n";
+                    }
+                }
+            }
         }
         function deleteAllPeople() {
-
+            $DeleteAllPeopleStmt = $this->DBConnectObj->prepare("DELETE FROM Person");
+            if (!$DeleteAllPeopleStmt->execute()) {
+                die("DeleteAllPeople execute failed: ".$DeleteAllPeopleStmt->error);
+            } else {
+                echo "\nAll people deleted\n";
+            }
         }
     }
 
-    $TestUser = new Person($DBConnect);
-    $TestUser->createPerson('John','Doe','2001-05-10','JohnDoe@example.com',
-        21);
+    $PersonObj = new Person($DBConnectObj);
+//    $PersonObj->createPerson('Tyrique','de Bruin','2001-05-10','Tyrique@example.com',23);
+//    $PersonObj->loadPerson(9);
+//    $PersonObj->savePerson(9,'Bryon','Mogapi','1995-03-21','deven@example.com', 26);
+//    $PersonObj->deletePerson(2);
+//    $PersonObj->loadAllPeople();
+//    $PersonObj->deleteAllPeople();
 
+    $NamesArr = [
+        'Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Isabella', 'Sophia', 'Jackson', 'Lucas', 'Aiden',
+        'Mia', 'Ethan', 'Elijah', 'Harper', 'Amelia'
+    ];
 
+    $SurnamesArr = [
+        'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor',
+        'Anderson', 'Thomas', 'Jackson', 'White', 'Harris'
+    ];
 
-    $DBConnect->close();
+    for ($i = 0; $i < 10; $i++) {
+
+        $FirstNameStr = $NamesArr[rand(0, count($NamesArr)-1)];
+        $SurnameStr = $SurnamesArr[rand(0, count($SurnamesArr)-1)];
+        $DateOfBirthStr = date("Y-m-d", rand(strtotime("1960-01-01"), strtotime(date("Y-m-d"))));
+        $EmailAddressStr = $FirstNameStr.uniqid()."@example.com";
+        $AgeInt = date_diff(date_create($DateOfBirthStr), date_create('today'))->y;
+        if($AgeInt < 0) {
+            $AgeInt--;
+        }
+        $PersonObj->createPerson($FirstNameStr, $SurnameStr, $DateOfBirthStr, $EmailAddressStr, $AgeInt);
+    } echo "\n";
+
+    $PersonObj->loadAllPeople();
+
+    $EndTimeFlt = microtime(true);
+    $executeTimeFlt = number_format(($EndTimeFlt - $StartTimeFlt),3,'.','');
+    echo "\nExecution time: ".$executeTimeFlt." seconds\n";
+
+    $DBConnectObj->close();
