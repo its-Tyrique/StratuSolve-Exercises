@@ -89,7 +89,7 @@
                     echo "\nNo people found in table\n";
                 } else {
                     while ($PersonArr = $Result->fetch_assoc()) {
-                        echo "\nPersonID: ".$PersonArr['id']."\n\tName: ".$PersonArr['FirstName']." ".$PersonArr['Surname']." \n\tDoB: ".$PersonArr['DateOfBirth']
+                        echo "\nPersonID: ".$PersonArr['Id']."\n\tName: ".$PersonArr['FirstName']." ".$PersonArr['Surname']." \n\tDoB: ".$PersonArr['DateOfBirth']
                             ." \n\tEmail: ". $PersonArr['EmailAddress']." \n\tAge: ".$PersonArr['Age']."\n";
                     }
                 }
