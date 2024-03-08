@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation Task 7</title>
+    <link rel="stylesheet" type="text/css" href="foundation_task_7.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="foundation_task_7.js"></script>
+</head>
+
+<body>
+    <div class="crud-table">
+
+        <!-- Form for adding a record -->
+        <form id="dataForm" action="foundation_task_7.php" method="post">
+
+            <label for="FirstNameTxt">First name:</label>
+            <input type="Text" id="FirstNameTxt" name="FirstName" placeholder="FirstName" required>
+            <br>
+
+            <label for="SurnameTxt">Surname:</label>
+            <input type="Text" id="SurnameTxt" name="Surname" placeholder="Surname" required>
+            <br>
+
+            <label for="DateOfBirth">Date Of Birth:</label>
+            <input type="Date" id="DateOfBirth" name="DateOfBirth" required>
+            <br>
+
+            <label for="Email">Email:</label>
+            <input type="Email" id="Email" name="Email" placeholder="Email" required>
+            <br>
+
+            <button type="Button" id="AddBtn" class="actions-btn" onclick="addPerson()">Add Person</button>
+            <button type="Button" id="DeleteAllBtn" class="delete-actions-btn" onclick="deleteAllRecords()">Delete All</button>
+        </form>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <!--                <th>ID</th>-->
+                    <th>First Name</th>
+                    <th>Surname</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody id="peopleTable">
+
+                <!-- Sample data, replace with dynamic data from your server -->
+                <tr>
+                    <!--                <td>1</td>-->
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>1990-01-01</td>
+                    <td>john@example.com</td>
+                    <td>30</td>
+                    <td>
+                        <button class="actions-btn" onclick="getRecord(1)">Edit</button>
+                        <button class="delete-actions-btn" onclick="deleteRecord(1)">Delete</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <!--                <td>2</td>-->
+                    <td>Jane</td>
+                    <td>Smith</td>
+                    <td>1985-05-15</td>
+                    <td>jane@example.com</td>
+                    <td>36</td>
+                    <td>
+                        <button class="actions-btn" onclick="editRecord(2)">Edit</button>
+                        <button class="delete-actions-btn" onclick="deleteRecord(2)">Delete</button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- Table for displaying records -->
+
+<!--        <div id="pagination">TODO add pagination</div>-->
+    </div>
+</body>
+
+    <!-- Modal for editing records -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+
+            <h2>Edit Record</h2>
+            <!-- Form for editing records -->
+            <form id="editForm" action="foundation_task_7.php" method="post">
+                <input type="hidden" id="EditRecordID" name="RecordID">
+                <label for="EditFirstNameTxt">First name:</label>
+                <input type="text" id="EditFirstNameTxt" name="FirstName" required>
+                <br>
+
+                <label for="EditSurnameTxt">Surname:</label>
+                <input type="text" id="EditSurnameTxt" name="Surname" required>
+                <br>
+
+                <label for="EditDateOfBirth">Date Of Birth:</label>
+                <input type="date" id="EditDateOfBirth" name="DateOfBirth" required>
+                <br>
+
+                <label for="EditEmail">Email:</label>
+                <input type="email" id="EditEmail" name="Email" required>
+                <br>
+
+                <button type="button" id="UpdateBtn" class="actions-btn" onclick="updateRecord()">Update Record</button>
+            </form>
+        </div>
+    </div>
+</html>
