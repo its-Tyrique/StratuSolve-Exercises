@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     // Event listener for real-time validation
     $('#Email').on('input', function() {
-        validateEdit();
+        validateEmail();
     });
 
     function validateEmail() {

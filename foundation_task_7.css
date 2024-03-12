@@ -99,6 +99,11 @@ tr:hover {
     font-size: 16px;
 }
 
+#dataForm input {
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 2px solid black;
+}
 #dataForm button {
     flex: 0 0 48%;
 }
