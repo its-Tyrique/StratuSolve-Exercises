@@ -13,3 +13,5 @@ CREATE TABLE Posts (
     UserId INT,
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
+
+SELECT * FROM Users WHERE Email = 'Tyriquedebruin@gmail.com';

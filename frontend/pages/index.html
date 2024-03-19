@@ -9,32 +9,57 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .login-form button {
+            margin-top: 20px;
+        }
+        .password-toggle {
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="rounded" />
-                    </div>
-                    <div class="col-md-6">
-                        <form id="loginForm" action="login.php" method="post" role="form">
-                            <div class="form-group">
-                                <label for="LoginEmail">Email</label>
-                                <input type="email" class="form-control" id="LoginEmail" placeholder="Enter email" aria-describedby="emailHelp">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <img id="Logo" alt="Howzit Logo" src="../assets/howzit_logo.jpeg" class="rounded"/>
+                </div>
+                <div class="col-md-6">
+                    <form id="loginForm" action="../../backend/functions/loadUser.php" method="post" role="form" class="login-form">
+                        <div class="form-group">
+                            <label for="LoginEmail">Email</label>
+                            <input type="email" class="form-control" id="LoginEmail" placeholder="Enter email" aria-describedby="emailHelp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="LoginPassword">Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="LoginPassword" placeholder="Password" required>
+                                <button type="button" class="btn btn-outline-secondary password-toggle" onclick="togglePasswordVisibility()">
+                                    <i class="bi bi-eye"></i>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="LoginPassword">Password</label>
-                                <input type="password" class="form-control" id="LoginPassword" placeholder="Password">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Login</button>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember Me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <a href="sign_up.html">Sign up</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<script src="../js/login.js"></script>
 </body>
 </html>

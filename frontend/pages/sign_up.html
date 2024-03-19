@@ -9,6 +9,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <style>
+        img {
+            width: 100%;
+        }
+        .signup-form button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -16,10 +24,10 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="rounded" />
+                        <img alt="Howzit Logo" src="../assets/howzit_logo.jpeg" class="rounded" />
                     </div>
                     <div class="col-md-6">
-                        <form id="signUpForm" role="form" action="../../backend/functions/createUser.php" method="post">
+                        <form id="signUpForm" role="form" action="../../backend/functions/createUser.php" method="post" class="signup-form">
                             <div class="form-group">
                                 <label for="FirstName">First Name</label>
                                 <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter first name">
@@ -41,8 +49,9 @@
                                 <label for="ConfirmPassword">Confirm Password</label>
                                 <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password">
                             </div>
-                            <button type="submit" id="SignUpBtn" class="btn btn-primary">Sign Up</button>
+                            <button type="submit" id="SignUpBtn" class="btn btn-primary" onclick="addUser()">Sign Up</button>
                         </form>
+                        <a href="index.html">Login</a>
                     </div>
                 </div>
             </div>
