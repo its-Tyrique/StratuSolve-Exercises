@@ -4,25 +4,48 @@ document.addEventListener("DOMContentLoaded", function() {
     postForm.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        let postContent = document.getElementById("post-content").value.trim();
-        let postImage = document.getElementById("post-image").files[0];
+        let formData = new FormData(postForm); // Create a FormData object to store form data
 
-        postContent = sanitizeHTML(postContent);
+        // Send form data to the backend using AJAX
+        $.ajax({
+            url: "../../backend/functions/createPost.php",
+            method: "POST",
+            data: formData, // Use the FormData object
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log("Ajax request succeeded.");
+                console.log(response);
+                let data = JSON.parse(response);
+                if (data.success) {
+                    // Handle success
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Post created successfully!',
+                        showConfirmButton: false
+                    });
+                } else {
+                    // Handle errors
+                    errorMessages = data.error ;
 
-        $.post("../../backend/functions/createPost.php", {PostContent: postContent, PostImage: postImage})
-        .done(function (response){
-            let data = JSON.parse(response);
-            if (data.success) {
-
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'oh no!',
+                        text: errorMessages,
+                        showConfirmButton: true
+                    })
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'oh no!',
+                    text: 'Back-end error occurred.',
+                    showConfirmButton: true
+                });
             }
-            let errorMessages = '';
-            if (data.error) {
-            }
-        })
+        });
     });
-
-    // Basic HTML sanitization function
-    function sanitizeHTML(input) {
-        return input.replace(/<[^>]*>?/gm, '');
-    }
-}
+});

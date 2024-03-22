@@ -10,8 +10,7 @@ CREATE TABLE Posts (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     PostTimeStamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PostText TEXT NOT NULL,
+    PostImage VARCHAR(255) NULL,
     UserId INT,
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
-
-SELECT * FROM Users WHERE Email = 'Tyriquedebruin@gmail.com';

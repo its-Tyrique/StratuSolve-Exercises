@@ -35,12 +35,12 @@
                 <!-- Post Form -->
                 <form id="post-form" action="#" method="post" enctype="multipart/form-data" role="form">
                     <div class="mb-3">
-                        <label for="post-content" class="form-label">What's on your mind?</label>
-                        <textarea class="form-control" id="post-content" name="post" rows="3"></textarea>
+                        <label for="post-text" class="form-label">What's on your mind?</label>
+                        <textarea class="form-control" id="post-text" name="PostText" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="post-image" class="form-label">Upload Image</label>
-                        <input type="file" class="form-label" id="post-image" name="post-image">
+                        <input type="file" class="form-label" id="post-image" name="PostImage">
                     </div>
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
