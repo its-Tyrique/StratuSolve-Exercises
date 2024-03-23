@@ -27,6 +27,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="profile.php">Profile</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Index.html">Log-Out</a>
+                    </li>
                     <!-- Add more navigation links as needed -->
                 </ul>
             </div>
@@ -46,7 +49,7 @@
                 </form>
                 <hr>
                 <!-- Post Cards -->
-                <div class="card mb-3">
+                <div class="card mb-3" id="post-container">
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>

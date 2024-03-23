@@ -48,4 +48,51 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
+    /*function fetchAllPosts() {
+        $.get("../../backend/functions/fetchPosts.php", function (data) {
+            let posts =JSON.parse(data);
+
+            // Clear existing posts
+            document.getElementById("post-container").innerHTML = "";
+
+            posts.forEach(function (post) {
+                let postContainer = document.createElement("div");
+                postContainer.classList.add("card", "mb-3");
+
+                let cardHeader = document.createElement("div");
+                cardHeader.classList.add("card-header");
+
+                let card = document.createElement("div");
+
+                let PosterProfilePic = document.createElement("img");
+                PosterProfilePic.src = "../assets/user.svg";
+                PosterProfilePic.classList.add("rounded-circle me-2");
+
+                let PosterName = document.createElement("span");
+                PosterName.classList.add("fw-bold");
+                PosterName.textContent = post.PosterName;
+
+                let cardBody = document.createElement("div");
+                cardBody.classList.add("card-body");
+
+                let cardText = document.createElement("p");
+                cardText.classList.add("card-text");
+                cardText.textContent = post.PostText;
+
+                cardBody.appendChild(cardText);
+                card.appendChild(cardBody);
+
+                // Append the card to the post container
+                document.getElementById("post-container").appendChild(card);
+            });
+        });
+    }*/
+
+    function shortPolling() {
+        setInterval(fetchAllPosts, 5000);
+    }
+
+    fetchAllPosts();
+    shortPolling();
 });
