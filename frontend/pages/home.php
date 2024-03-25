@@ -1,3 +1,7 @@
+<?php
+    require_once("../../backend/functions/checkAuthentication.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 
 <body>
@@ -25,7 +28,7 @@
                         <a class="nav-link active" href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profile.php">Profile</a>
+                        <a class="nav-link" id="profile-button" href="profile.php">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Index.html">Log-Out</a>
@@ -41,10 +44,16 @@
                         <label for="post-text" class="form-label">What's on your mind?</label>
                         <textarea class="form-control" id="post-text" name="PostText" rows="3"></textarea>
                     </div>
-                    <div class="mb-3">
+
+                    <!-- Image upload icon -->
+                    <label for="post-image" class="form-label" id="post-image-label">
+                        <img src="../assets/image_icon.png" alt="Upload Image" width="50px" height="50px">
+                    </label>
+                    <input type="file" class="form-label visually-hidden" id="post-image" name="PostImage">
+                    <!--<div class="mb-3">
                         <label for="post-image" class="form-label">Upload Image</label>
                         <input type="file" class="form-label" id="post-image" name="PostImage">
-                    </div>
+                    </div> -->
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
                 <hr>

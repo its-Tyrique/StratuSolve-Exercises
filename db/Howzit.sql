@@ -3,7 +3,8 @@ CREATE TABLE Users (
     FirstName VARCHAR(100) NOT NULL ,
     LastName VARCHAR(100) NOT NULL,
     Email VARCHAR(255) NOT NULL UNIQUE,
-    Password VARCHAR(255) NOT NULL
+    Password VARCHAR(255) NOT NULL,
+    ProfilePicture VARCHAR(255) NULL
 );
 
 CREATE TABLE Posts (
@@ -14,3 +15,10 @@ CREATE TABLE Posts (
     UserId INT,
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
+
+SELECT Posts.*, Users.FirstName, Users.LastName
+FROM Posts
+         JOIN Users ON Posts.UserId = Users.Id
+ORDER BY Posts.Id DESC;
+
+

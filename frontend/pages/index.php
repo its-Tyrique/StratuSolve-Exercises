@@ -43,14 +43,10 @@
                             <label for="LoginPassword">Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="LoginPassword" placeholder="Password" required>
-                                <button type="button" class="btn btn-outline-secondary password-toggle" onclick="togglePasswordVisibility()">
-                                    <i class="bi bi-eye"></i>
-                                </button>
+<!--                                <button type="button" class="btn btn-outline-secondary password-toggle" onclick="togglePasswordVisibility()">-->
+<!--                                    <i class="bi bi-eye"></i>-->
+<!--                                </button>-->
                             </div>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Remember Me</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -61,5 +57,26 @@
     </div>
 </div>
 <script src="../js/login.js"></script>
+<script>
+    <?php
+    session_start();
+
+    // Check if the message parameter is present in the URL
+    if (isset($_GET['message'])) {
+        $message = "";
+        // Check the message type
+        if ($_GET['message'] == "not_authenticated") {
+            $message = "You are not authenticated. Please log in.";
+        }
+        // Display the message using SweetAlert
+        echo "Swal.fire({
+                icon: 'error',
+                title: 'Authentication Error',
+                text: '$message',
+                confirmButtonText: 'OK'
+            });";
+    }
+    ?>
+</script>
 </body>
 </html>

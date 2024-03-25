@@ -69,7 +69,7 @@ document.getElementById("signUpForm").addEventListener("submit", function(event)
                 timer: 4500 // Automatically close after 2 seconds
             }).then(function() {
                 // Redirect to another page or perform any additional action
-                window.location.href = "index.html"; // Example redirection
+                window.location.href = "index.phpphp"; // Example redirection
             });
         })
         .fail(function(error) {

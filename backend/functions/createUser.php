@@ -20,5 +20,5 @@
         $CreateUserStmt->execute();
         $CreateUserStmt->close();
 
-        header('Location: ../../frontend/pages/index.html');
+        header('Location: ../../frontend/pages/index.php');
     }

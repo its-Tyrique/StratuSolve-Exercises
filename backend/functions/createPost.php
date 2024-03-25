@@ -2,7 +2,7 @@
     session_start();
     require_once "../includes/db_connection.php";
     function getDefaultFilePath($UserIDInt) {
-        return '../uploads/user_'."$UserIDInt".'/';
+        return '../../backend/uploads/user_'."$UserIDInt".'/';
     }
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
