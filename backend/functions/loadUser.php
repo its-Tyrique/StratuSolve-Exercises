@@ -25,6 +25,7 @@
                 $_SESSION['LastName'] = $UserRow['LastName'];
                 $_SESSION['Email'] = $UserRow['Email'];
                 $_SESSION['Password'] = $UserRow['Password'];
+                $_SESSION['ProfilePicture'] = $UserRow['ProfilePicture'];
 //                header('Location: ../../frontend/pages/home.php');
 
                 die(json_encode(array("success" => "User logged in")));

@@ -3,7 +3,7 @@
     require_once "../includes/db_connection.php";
 
     $fetchPostsQuery = "
-            SELECT Posts.*, Users.FirstName, Users.LastName
+            SELECT Posts.*, Users.FirstName, Users.LastName, Users.ProfilePicture
             FROM Posts
             JOIN Users ON Posts.UserId = Users.Id
             ORDER BY Posts.Id DESC

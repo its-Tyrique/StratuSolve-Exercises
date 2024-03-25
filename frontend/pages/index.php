@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +25,52 @@
         .password-toggle {
             cursor: pointer;
         }
+
+        body {
+            background-color: #B6E9EB; /* Light blue background */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .login-form {
+            background-color: #FEF9EA; /* Light yellow form background */
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group label {
+            color: #09192B; /* Dark blue label text */
+        }
+
+        .form-control {
+            background-color: #0BA5F1; /* Blue input background */
+            color: #09192B; /* Dark blue input text */
+            border-color: #1CCDFB; /* Light blue border color */
+        }
+
+        .form-control:focus {
+            background-color: #0BA5F1; /* Blue input background on focus */
+            border-color: #1CCDFB; /* Light blue border color on focus */
+            box-shadow: none; /* Remove default focus box shadow */
+        }
+
+        .btn-primary {
+            background-color: #09192B; /* Dark blue button background */
+            border-color: #09192B; /* Dark blue button border */
+        }
+
+        .btn-primary:hover {
+            background-color: #1CCDFB; /* Light blue button background on hover */
+            border-color: #1CCDFB; /* Light blue button border on hover */
+        }
+
+        a {
+            color: #09192B; /* Dark blue link text */
+        }
     </style>
 
 </head>
@@ -31,13 +81,14 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-6">
-                    <img id="Logo" alt="Howzit Logo" src="../assets/howzit_logo.jpeg" class="rounded"/>
+                    <img id="Logo" alt="Howzit Logo" src="../assets/howzit_logo.jpeg" class="rounded-circle"/>
                 </div>
                 <div class="col-md-6">
                     <form id="loginForm" action="../../backend/functions/loadUser.php" method="post" role="form" class="login-form">
                         <div class="form-group">
                             <label for="LoginEmail">Email</label>
                             <input type="email" class="form-control" id="LoginEmail" placeholder="Enter email" aria-describedby="emailHelp" required>
+                            <div class="invalid-feedback" id="emailValidationMessage"></div>
                         </div>
                         <div class="form-group">
                             <label for="LoginPassword">Password</label>
@@ -47,10 +98,11 @@
 <!--                                    <i class="bi bi-eye"></i>-->
 <!--                                </button>-->
                             </div>
+                            <div class="invalid-feedback" id="passwordValidationMessage"></div>
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary" id="signUpBtn">Sign up</button>
                     </form>
-                    <a href="sign_up.html">Sign up</a>
                 </div>
             </div>
         </div>
@@ -59,7 +111,6 @@
 <script src="../js/login.js"></script>
 <script>
     <?php
-    session_start();
 
     // Check if the message parameter is present in the URL
     if (isset($_GET['message'])) {

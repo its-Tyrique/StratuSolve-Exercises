@@ -16,6 +16,47 @@
         .signup-form button {
             margin-top: 20px;
         }
+        body {
+            background-color: #B6E9EB; /* Light blue background */
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 200px; /* Adjust as needed */
+        }
+
+        .signup-form {
+            background-color: #FEF9EA; /* Light yellow form background */
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group label {
+            color: #09192B; /* Dark blue label text */
+        }
+
+        .form-control {
+            background-color: #0BA5F1; /* Blue input background */
+            color: #09192B; /* Dark blue input text */
+            border-color: #1CCDFB; /* Light blue border color */
+        }
+
+        .form-control:focus {
+            background-color: #0BA5F1; /* Blue input background on focus */
+            border-color: #1CCDFB; /* Light blue border color on focus */
+            box-shadow: none; /* Remove default focus box shadow */
+        }
+
+        .btn-primary {
+            background-color: #09192B; /* Dark blue button background */
+            border-color: #09192B; /* Dark blue button border */
+        }
+
+        .btn-primary:hover {
+            background-color: #1CCDFB; /* Light blue button background on hover */
+            border-color: #1CCDFB; /* Light blue button border on hover */
+        }
     </style>
 </head>
 <body>
@@ -24,34 +65,38 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <img alt="Howzit Logo" src="../assets/howzit_logo.jpeg" class="rounded" />
+                        <img alt="Howzit Logo" src="../assets/howzit_logo.jpeg" class="rounded-circle" />
                     </div>
                     <div class="col-md-6">
                         <form id="signUpForm" role="form" action="../../backend/functions/createUser.php" method="post" class="signup-form">
                             <div class="form-group">
                                 <label for="FirstName">First Name</label>
                                 <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter first name">
+                                <div id="firstName-error" class="error-message text-danger"></div>
                             </div>
                             <div class="form-group">
                                 <label for="LastName">Last Name</label>
                                 <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter last name">
+                                <div id="lastName-error" class="error-message text-danger"></div>
                             </div>
                             <div class="form-group">
                                 <label for="Email">Email</label>
                                 <input type="email" class="form-control" id="Email" name="Email" placeholder="Enter email" aria-describedby="emailHelp">
-                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                <div id="email-error" class="error-message text-danger"></div>
                             </div>
                             <div class="form-group">
                                 <label for="Password">Password</label>
                                 <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                                <div id="password-error" class="error-message text-danger"></div>
                             </div>
                             <div class="form-group">
                                 <label for="ConfirmPassword">Confirm Password</label>
                                 <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password">
+                                <div id="confirmPassword-error" class="error-message text-danger"></div>
                             </div>
                             <button type="submit" id="SignUpBtn" class="btn btn-primary" onclick="addUser()">Sign Up</button>
+                            <button type="submit" id="LoginBtn" class="btn btn-primary" >Login</button>
                         </form>
-                        <a href="index.php">Login</a>
                     </div>
                 </div>
             </div>

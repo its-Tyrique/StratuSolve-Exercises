@@ -39,6 +39,28 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    function logout() {
+        $.ajax({
+            url: "../../backend/functions/logout.php",
+            method: "POST",
+            success: function(response) {
+                window.location.href = "index.php";
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX request failed:", error);
+                showErrorMessage("Back-end error occurred.");
+            }
+        });
+    }
+
+    let logoutLink = document.querySelector('a[href="index.php"]');
+    if (logoutLink) {
+        logoutLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            logout();
+        });
+    }
+
     // Event listener for file input change
     postImageInput.addEventListener("change", function() {
         if (postImageInput.files.length > 0) {
@@ -83,7 +105,35 @@ document.addEventListener("DOMContentLoaded", function() {
         postImageLabel.innerHTML = '<img src="../assets/uploaded_image.png" alt="Uploaded Image" width="50px" height="50px">';
     }
 
+    // Function to show loading spinner
+    function showLoadingSpinner() {
+        document.getElementById("loading-spinner").style.display = "block";
+    }
+
+    function hideLoadingSpinner() {
+        document.getElementById("loading-spinner").style.display = "none";
+    }
+
+    let postsLoaded = false;
+    function showLoadingSpinner() {
+        Swal.fire({
+            title: 'Loading',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            willOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    }
+
     function fetchAllPosts() {
+        // Clear existing posts
+        document.getElementById("post-container").innerHTML = "";
+
+        if (!postsLoaded === true) {
+            showLoadingSpinner();
+        }
+
         $.get("../../backend/functions/fetchPosts.php", function (data) {
             let posts =JSON.parse(data);
 
@@ -105,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Create user avatar
                 let userAvatar = document.createElement("img");
-                userAvatar.src = "../assets/user.svg";
+                userAvatar.src = post.ProfilePicture;
                 userAvatar.classList.add("rounded-circle", "me-2");
                 userAvatar.alt = "User Avatar";
                 userAvatar.style.width = "30px";
@@ -189,6 +239,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Append card to the container
                 document.getElementById("post-container").appendChild(card);
             });
+            postsLoaded = true;
+            Swal.close();
         });
     }
 
@@ -206,5 +258,5 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     fetchAllPosts();
-    shortPolling();
+    // shortPolling();
 });

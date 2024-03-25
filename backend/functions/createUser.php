@@ -11,12 +11,15 @@
         die(json_encode(array("error" => "Passwords do not match")));
     }
 
+    // Set default profile picture
+    $ProfilePictureStr = "../assets/user.svg";
+
     if (isset($_POST['FirstName'], $_POST['LastName'], $_POST['Email'], $_POST['Password'], $_POST['ConfirmPassword'])) {
         $HashedPassword = password_hash($PasswordStr, PASSWORD_BCRYPT);
 
         $CreateUserStmt = $DBConnectObj->prepare("INSERT INTO Users (FirstName, LastName, 
-                                            Email, Password) VALUES (?, ?, ?, ?)");
-        $CreateUserStmt->bind_param("ssss", $FirstNameStr, $LastNameStr, $EmailStr, $HashedPassword);
+                                            Email, Password, ProfilePicture) VALUES (?, ?, ?, ?, ?)");
+        $CreateUserStmt->bind_param("sssss", $FirstNameStr, $LastNameStr, $EmailStr, $HashedPassword, $ProfilePictureStr);
         $CreateUserStmt->execute();
         $CreateUserStmt->close();
 

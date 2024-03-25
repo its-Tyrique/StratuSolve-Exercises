@@ -14,6 +14,52 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/profile.js"></script>
+
+    <style>
+        body {
+            background-color: #B6E9EB; /* Light blue background */
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #0BA5F1; /* Blue active link background */
+            color: #FFFFFF; /* White active link text */
+        }
+
+        .nav-pills .nav-link {
+            color: #09192B; /* Dark blue link text */
+        }
+
+        .form-control {
+            background-color: #FEF9EA; /* Light yellow form background */
+            color: #09192B; /* Dark blue input text */
+            border-color: #1CCDFB; /* Light blue border color */
+        }
+
+        .btn-primary {
+            background-color: #09192B; /* Dark blue button background */
+            border-color: #09192B; /* Dark blue button border */
+        }
+
+        .btn-primary:hover {
+            background-color: #1CCDFB; /* Light blue button background on hover */
+            border-color: #1CCDFB; /* Light blue button border on hover */
+        }
+
+        .card {
+            background-color: #FEF9EA; /* Light yellow card background */
+            border-color: #1CCDFB; /* Light blue card border */
+        }
+
+        .card-header {
+            background-color: #0BA5F1; /* Blue card header background */
+            color: #FFFFFF; /* White card header text */
+        }
+
+        .img-thumbnail {
+            border-color: #1CCDFB; /* Light blue border color for profile picture */
+        }
+    </style>
+
 </head>
 
 <body>
@@ -23,7 +69,7 @@
         <div class="col-md-4">
             <ul class="nav flex-column nav-pills">
                 <li>
-                    <img src="../assets/howzit_logo.jpeg" class="img-fluid" alt="Howzit Logo">
+                    <img src="../assets/howzit_logo.jpeg" class="img-fluid rounded-circle" alt="Howzit Logo">
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="home.php">Home</a>
@@ -32,7 +78,7 @@
                     <a class="nav-link active" href="profile.php">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Index.php">Log-Out</a>
+                    <a class="nav-link" href="../../backend/functions/logout.php">Log-Out</a>
                 </li>
                 <!-- Add more navigation links as needed -->
             </ul>
@@ -42,13 +88,13 @@
                 <div class="col-md-12">
                     <!-- Display user information -->
                     <h2>Profile Information</h2>
-                    <form id="profile-form" action="#" method="post">
+                    <form id="profile-form" action="../../backend/functions/updateProfile.php" method="post" enctype="multipart/form-data">
                         <!-- Profile Picture -->
                         <div class="mb-3" id="profilePictureContainer">
                             <?php if (!empty($_SESSION['ProfilePicture'])): ?>
-                                <img src="../profile_pictures/<?php echo $_SESSION['ProfilePicture']; ?>" alt="Profile Picture" class="img-thumbnail" id="profilePicture" style="max-width: 150px;">
+                                <img src="../profile_pictures/<?php echo $_SESSION['ProfilePicture']; ?>" alt="Profile Picture" class="img-thumbnail" id="profilePictureImage" style="max-width: 150px;">
                             <?php else: ?>
-                                <img src="../assets/user.svg" alt="Profile Picture" class="img-thumbnail" id="profilePicture" style="max-width: 150px;">
+                                <img src="../assets/user.svg" alt="Profile Picture" class="img-thumbnail" id="profilePictureImage" style="max-width: 150px;">
                             <?php endif; ?>
                             <!-- Hidden file input -->
                             <input type="file" class="form-control visually-hidden" id="profilePictureInput" name="profilePicture">
