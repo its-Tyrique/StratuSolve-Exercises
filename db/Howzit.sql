@@ -4,7 +4,9 @@ CREATE TABLE Users (
     LastName VARCHAR(100) NOT NULL,
     Email VARCHAR(255) NOT NULL UNIQUE,
     Password VARCHAR(255) NOT NULL,
-    ProfilePicture VARCHAR(255) NULL
+    ProfilePicture VARCHAR(255) NULL,
+    VerificationToken VARCHAR(255) NULL,
+    IsVerified BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE Posts (
@@ -21,4 +23,11 @@ FROM Posts
          JOIN Users ON Posts.UserId = Users.Id
 ORDER BY Posts.Id DESC;
 
+RENAME TABLE Users TO User;
+RENAME TABLE Posts TO Post;
+
+
+ALTER TABLE Users ADD UNIQUE (Email);
+
+DROP TABLE Users;
 

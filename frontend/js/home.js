@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     showSuccessMessage("Post created successfully!");
                     resetForm();
                     resetImageIcon();
-                    fetchAllPosts();
+                    fetchPosts();
                 } else {
                     // Handle errors
                     showErrorMessage(data.error);
@@ -106,13 +106,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Function to show loading spinner
-    function showLoadingSpinner() {
+    /*function showLoadingSpinner() {
         document.getElementById("loading-spinner").style.display = "block";
     }
 
     function hideLoadingSpinner() {
         document.getElementById("loading-spinner").style.display = "none";
-    }
+    }*/
 
     let postsLoaded = false;
     function showLoadingSpinner() {
@@ -126,21 +126,27 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function fetchAllPosts() {
-        // Clear existing posts
-        document.getElementById("post-container").innerHTML = "";
+    let postOffset = 0;
+    let postLimit = 10;
 
-        if (!postsLoaded === true) {
+    function fetchPosts() {
+
+        if (!postsLoaded) {
+            // Clear existing posts
+            document.getElementById("post-container").innerHTML = "";
             showLoadingSpinner();
         }
 
-        $.get("../../backend/functions/fetchPosts.php", function (data) {
+        $.get("../../backend/functions/fetchPosts.php", {limit: postLimit, offset: postOffset}, function (data) {
             let posts =JSON.parse(data);
 
             // Clear existing posts
             document.getElementById("post-container").innerHTML = "";
 
             posts.forEach(function(post) {
+
+                // createPostCard(post);
+
                 // Create card element
                 let card = document.createElement("div");
                 card.classList.add("card", "mb-3");
@@ -239,9 +245,33 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Append card to the container
                 document.getElementById("post-container").appendChild(card);
             });
+
+            postLimit += 10;
+
             postsLoaded = true;
             Swal.close();
         });
+    }
+
+    function loadMorePosts() {
+        if (postsLoaded) {
+            fetchPosts();
+        }
+    }
+
+    window.addEventListener('scroll', function() {
+       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+           loadMorePosts();
+       } else {
+            showEndOfContentIndicator();
+       }
+    });
+
+    function showEndOfContentIndicator() {
+        let endOfContentIndicator = document.getElementById("end-of-content-indicator");
+        if (endOfContentIndicator) {
+            endOfContentIndicator.style.display = "block";
+        }
     }
 
     // Function to navigate to the profile page
@@ -254,9 +284,9 @@ document.addEventListener("DOMContentLoaded", function() {
     profileButton.addEventListener("click", navigateToProfile);
 
     function shortPolling() {
-        setInterval(fetchAllPosts, 5000);
+        setInterval(fetchPosts, 5000);
     }
 
-    fetchAllPosts();
+    fetchPosts();
     // shortPolling();
 });

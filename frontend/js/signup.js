@@ -127,8 +127,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     icon: 'success',
                     title: 'Success!',
                     text: 'Sign-up successful!',
-                    showConfirmButton: false,
-                    timer: 4500,
+                    showConfirmButton: true,
+                    // timer: 4500,
                 }).then(function() {
                     // Redirect to another page
                     window.location.href = "index.php";
